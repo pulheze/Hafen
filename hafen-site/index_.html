@@ -1,0 +1,865 @@
+index.html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAFEN - CAFÉS ESPECIAIS</title>
+    <!-- Tipografia: Rubik -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --preto: #000000;
+            --branco: #FFFFFF;
+            --cinza-claro: #f5f5f5;
+            --cinza-escuro: #333333;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: var(--branco);
+            color: var(--preto);
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--branco);
+            padding: 1.5rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo img {
+            height: 25px;
+            width: auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--preto);
+            font-weight: 400;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px; /* Título informativo e head - tudo em caixa alta */
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active-link {
+            opacity: 0.5;
+        }
+
+        .cart-icon {
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            margin-top: 70px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* HERO */
+        .hero-barn {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 90vh;
+            height: 90vh;
+        }
+
+        .hero-imagem {
+            background-color: var(--cinza-claro);
+            overflow: hidden;
+        }
+
+        .hero-imagem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-conteudo {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: var(--branco);
+        }
+
+        /* RUBIK 80pt com espaçamento um pouquinho maior - tudo em caixa alta */
+        .hero-titulo {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 700;
+            font-size: 80pt;
+            line-height: 0.9;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px; 
+        }
+
+        /* Rubik - 20 pt normal. */
+        .hero-texto {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 400;
+            font-size: 20pt;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            color: var(--cinza-escuro);
+        }
+
+        .btn-hero {
+            background-color: var(--preto);
+            color: var(--branco);
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: flex-start;
+            margin-top: 2rem;
+        }
+
+        .btn-hero:hover {
+            background-color: var(--cinza-escuro);
+        }
+
+        /* GRID DE SERVIÇOS */
+        .servicos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background-color: var(--branco);
+        }
+
+        .servico-card {
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: var(--branco);
+            border: 1px solid #eee;
+            transition: all 0.3s;
+            cursor: pointer;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .servico-card:hover {
+            background-color: var(--cinza-claro);
+        }
+
+        .servico-imagem {
+            width: 100%;
+            height: 200px;
+            margin: 0 auto 1.5rem;
+            background-color: var(--cinza-claro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cinza-escuro);
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Títulos principais: RUBIK 20pt espaçamento normal bold */
+        .servico-titulo, .titulo-secundario, .produto-nome, .plano-nome {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 700;
+            font-size: 20pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        /* CONTEÚDO DAS PÁGINAS */
+        .pagina-container {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Título principal da página: RUBIK 80pt com espaçamento um pouquinho maior - tudo em caixa alta */
+        .titulo-principal {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 700;
+            font-size: 80pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            line-height: 0.9;
+        }
+
+        /* Rubik - 20 pt normal. */
+        .texto-corrido {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 400;
+            font-size: 20pt;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            color: var(--cinza-escuro);
+        }
+
+        /* PRODUTORES */
+        .produtor-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+            align-items: center;
+        }
+
+        .produtor-imagem {
+            background-color: var(--cinza-claro);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cinza-escuro);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* LOJA */
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .produto-card {
+            border: 1px solid #eee;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .produto-imagem {
+            width: 100%;
+            height: 200px;
+            background-color: var(--cinza-claro);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cinza-escuro);
+        }
+
+        .produto-descricao {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 400;
+            font-size: 16pt;
+            line-height: 1.5;
+            color: var(--cinza-escuro);
+            margin-bottom: 1.5rem;
+        }
+
+        .produto-preco {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            font-size: 18pt;
+            margin: 1.5rem 0;
+        }
+
+        .quantidade-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .quantidade-btn {
+            background: none;
+            border: 1px solid var(--preto);
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .quantidade-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid var(--preto);
+            padding: 0.5rem;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .btn-adicionar {
+            background-color: var(--preto);
+            color: var(--branco);
+            border: none;
+            padding: 1rem 2rem;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            width: 100%;
+        }
+
+        .btn-adicionar:hover {
+            opacity: 0.8;
+        }
+
+        /* ASSINATURA */
+        .planos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .plano-card {
+            border: 1px solid #eee;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .plano-preco {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            font-size: 20pt;
+            margin-bottom: 1.5rem;
+            color: var(--cinza-escuro);
+        }
+
+        .plano-descricao {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 400;
+            font-size: 16pt;
+            line-height: 1.5;
+            color: var(--cinza-escuro);
+            margin-bottom: 2rem;
+            min-height: 80px; /* Para manter o alinhamento */
+        }
+
+        /* CONTATO */
+        .form-contato {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            font-family: 'Rubik', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* CARRINHO */
+        .carrinho-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .item-carrinho {
+            margin-bottom: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .total-carrinho {
+            font-size: 24pt;
+            font-weight: 700;
+            text-align: right;
+            margin: 2rem 0;
+        }
+
+        .btn-finalizar {
+            background-color: #4CAF50;
+            color: var(--branco);
+            border: none;
+            padding: 1.5rem 2rem;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            width: 100%;
+        }
+
+        .btn-finalizar:hover {
+            opacity: 0.8;
+        }
+
+        .frete-input {
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            font-family: 'Rubik', sans-serif;
+            font-size: 1rem;
+            margin-right: 1rem;
+        }
+
+        .btn-calcular-frete {
+            background-color: var(--preto);
+            color: var(--branco);
+            border: none;
+            padding: 0.5rem 1rem;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--preto);
+            color: var(--branco);
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-logo img {
+            height: 30px;
+            width: auto;
+            margin-bottom: 2rem;
+            filter: brightness(0) invert(1);
+        }
+
+        .pagamento-methods {
+            margin: 1rem 0;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 968px) {
+            .hero-barn {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .hero-titulo {
+                font-size: 60pt;
+            }
+            
+            .titulo-principal {
+                font-size: 60pt;
+            }
+            
+            .servicos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .produtor-item {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-titulo {
+                font-size: 40pt;
+            }
+            
+            .titulo-principal {
+                font-size: 40pt;
+            }
+            
+            .hero-texto, .texto-corrido {
+                font-size: 16pt;
+            }
+            
+            .pagina-container {
+                padding: 4rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <!-- LOGO: C:\Users\helen\OneDrive\Área de Trabalho\imagens_site\short.png -->
+                <img src="short.png" alt="HAFEN">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link" data-section="quem-somos">QUEM SOMOS</a></li>
+                    <li><a href="#" class="nav-link" data-section="produtores">PRODUTORES</a></li>
+                    <li><a href="#" class="nav-link" data-section="loja">LOJA</a></li>
+                    <li><a href="#" class="nav-link" data-section="assinatura">ASSINATURA MENSAL</a></li>
+                    <li><a href="#" class="nav-link" data-section="contato">CONTATO</a></li>
+                    <li><a href="#" class="nav-link" data-section="carrinho">
+                        <span class="cart-icon">🛒</span>
+                        <span id="cart-count">0</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- HERO -->
+        <section id="hero" class="section active">
+            <div class="hero-barn">
+                <div class="hero-imagem">
+                    <!-- IMAGEM HERO: C:\Users\helen\OneDrive\Área de Trabalho\imagens_site\cafederespeito.jpg -->
+                    <img src="cafederespeito.jpg" alt="HAFEN CAFÉ">
+                </div>
+                <div class="hero-conteudo">
+                    <p class="hero-texto">
+                        O CRITÉRIO FINAL RESIDE NA XÍCARA. É ASSIM QUE SELECIONAMOS NOSSOS CAFÉS.
+                    </p>
+                    <p class="hero-texto">
+                        NOSSA MATÉRIA-PRIMA É SELECIONADA PARA TRANSFORMAR UM ATO COTIDIANO EM UM MOMENTO DE DISTINÇÃO, CRIANDO PREFERÊNCIA. ENQUANTO O CAMINHO MAIS COMUM LEVA À UNIFORMIDADE, NÓS BUSCAMOS O PERFIL SENSORIAL QUE CONFERE IDENTIDADE ÚNICA AO SEU ESPAÇO, TRANSFORMANDO CONSUMIDORES EM CLIENTES FIÉIS.
+                    </p>
+                    <p class="hero-texto">
+                        NOSSO COMPROMISSO É COM CAFÉS DE EXCEÇÃO, QUE UNEM O APELO AO PALADAR COM A DISTINÇÃO COMERCIAL. O RESULTADO É UM RETORNO TANGÍVEL, CONSTRUÍDO COM RESPEITO A TODA A CADEIA — DO CULTIVO À XÍCARA — E, SOBRETUDO, A QUEM NELA ENCONTRARÁ UM MOMENTO DE GENUÍNO PRAZER.
+                    </p>
+                    <button class="btn-hero nav-link" data-section="contato">
+                        PEÇA UMA COTAÇÃO
+                    </button>
+                </div>
+            </div>
+
+            <!-- GRID DE SERVIÇOS -->
+            <div class="servicos-grid">
+                <div class="servico-card nav-link" data-section="produtores">
+                    <div class="servico-imagem">
+                        [IMAGEM FORNECEDORES]
+                    </div>
+                    <h3 class="servico-titulo">CONHEÇA NOSSOS FORNECEDORES</h3>
+                </div>
+                
+                <div class="servico-card nav-link" data-section="quem-somos">
+                    <div class="servico-imagem">
+                        [IMAGEM IDEALIZADORA]
+                    </div>
+                    <h3 class="servico-titulo">A IDEALIZADORA</h3>
+                </div>
+                
+                <div class="servico-card nav-link" data-section="assinatura">
+                    <div class="servico-imagem">
+                        [IMAGEM ASSINATURA]
+                    </div>
+                    <h3 class="servico-titulo">CAFÉ POR ASSINATURA</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUEM SOMOS -->
+        <section id="quem-somos" class="section">
+            <div class="pagina-container">
+                <h1 class="titulo-principal">A IDEALIZADORA</h1>
+                <div class="texto-corrido">
+                    <p>CAMILA NATÁRIO VIVEU POR SEIS ANOS EM HAMBURGO - ALEMANHA, ONDE SE ESPECIALIZOU EM TORRA PELA SCA EUROPE E ATUOU EM RENOMADAS TORREFAÇÕES DE RECONHECIMENTO MUNDIAL. DURANTE ESSE PERÍODO, TEVE ACESSO A CAFÉS DE DIVERSAS ORIGENS, INCLUINDO LOTES PREMIADOS PELO CUP OF EXCELLENCE, E APROFUNDOU SEU CONHECIMENTO SOBRE DIFERENTES TERROIRS E SEU IMPACTO NA QUALIDADE FINAL DA XÍCARA.</p>
+                    
+                    <p>SUA EXPERTISE SE ESTENDE À ANÁLISE DE PREPARO E À INFLUÊNCIA DOS EQUIPAMENTOS NA EXTRAÇÃO DAS MELHORES CARACTERÍSTICAS DO CAFÉ. PARA CAMILA, UM CAFÉ EXCEPCIONAL DEVE SER ACESSÍVEL NÃO APENAS PARA PROFISSIONAIS, MAS PARA TODOS QUE DESEJAM DESFRUTAR DE UMA EXPERIÊNCIA SENSORIAL MEMORÁVEL EM CASA, COM OS RECURSOS DISPONÍVEIS.</p>
+                    
+                    <p>EMBORA EQUIPAMENTOS DE QUALIDADE ELEVEM A EXPERIÊNCIA, ACREDITAMOS QUE UM CAFÉ VERDADEIRAMENTE ESPECIAL DEVE BRILHAR EM QUALQUER CIRCUNSTÂNCIA. A HAFEN NASCEU PARA CELEBRAR ESSA FILOSOFIA: OFERECER CAFÉS COM NOTAS INTENSAS E INCONFUNDÍVEIS, PERCEPTÍVEIS TANTO POR ESPECIALISTAS QUANTO POR QUEM BUSCA SIMPLESMENTE UMA PAUSA DE QUALIDADE NO DIA.</p>
+                    
+                    <p>NOSSO PROPÓSITO É CLARO: MAIS FELICIDADE NA XÍCARA, MENOS COMPLICAÇÃO NO PROCESSO. CADA GRÃO É SELECIONADO PARA ENTREGAR PUREZA, SABOR E PRAZER, INDEPENDENTEMENTE DO MÉTODO DE PREPARO ESCOLHIDO.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUTORES -->
+        <section id="produtores" class="section">
+            <div class="pagina-container">
+                <h1 class="titulo-principal">NOSSOS PARCEIROS</h1>
+                <p class="texto-corrido">
+                    NOSSA SELEÇÃO PRIORIZA FORNECEDORES QUE HONRAM O GRÃO. O CRITÉRIO É ÚNICO: ÉTICA INEGOCIÁVEL NO TRATO COM A TERRA E COM AS PESSOAS, GARANTINDO UM CAFÉ COM RASTREABILIDADE E RESPEITO.
+                </p>
+
+                <div class="produtor-item">
+                    <div class="produtor-imagem">
+                        [IMAGEM FAZENDA GUARIROBA]
+                    </div>
+                    <div>
+                        <h2 class="titulo-secundario">FAZENDA GUARIROBA</h2>
+                        <p class="texto-corrido">GABRIEL E ELISA LAMOUNIER</p>
+                        <p class="texto-corrido">LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS.</p>
+                    </div>
+                </div>
+
+                <div class="produtor-item">
+                    <div class="produtor-imagem">
+                        [IMAGEM FAZENDA BOA VISTA]
+                    </div>
+                    <div>
+                        <h2 class="titulo-secundario">FAZENDA BOA VISTA DO FUNDÃO</h2>
+                        <p class="texto-corrido">DOUGLAS E RENATA ROQUIM</p>
+                        <p class="texto-corrido">LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS.</p>
+                    </div>
+                </div>
+
+                <div class="produtor-item">
+                    <div class="produtor-imagem">
+                        [IMAGEM SÍTIO SANTA ROSA]
+                    </div>
+                    <div>
+                        <h2 class="titulo-secundario">SÍTIO SANTA ROSA</h2>
+                        <p class="texto-corrido">TIAGO E VALDIR DUARTE</p>
+                        <p class="texto-corrido">LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS.</p>
+                    </div>
+                </div>
+
+                <button class="btn-hero nav-link" data-section="contato" style="margin-top: 4rem;">
+                    SEJA NOSSO FORNECEDOR
+                </button>
+            </div>
+        </section>
+
+        <!-- LOJA -->
+        <section id="loja" class="section">
+            <div class="pagina-container">
+                <h1 class="titulo-principal">LOJA</h1>
+                
+                <div class="produtos-grid">
+                    <!-- Produto 1: SHOKO -->
+                    <div class="produto-card">
+                        <div class="produto-imagem">
+                            [IMAGEM SHOKO]
+                        </div>
+                        <h3 class="produto-nome">SHOKO</h3>
+                        <p class="produto-descricao">LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE.</p>
+                        <p class="produto-preco">R$ 175,00</p>
+                        <div class="quantidade-container">
+                            <button class="quantidade-btn" onclick="diminuirQuantidade('shoko')">-</button>
+                            <input type="number" id="quantidade-shoko" class="quantidade-input" value="1" min="1">
+                            <button class="quantidade-btn" onclick="aumentarQuantidade('shoko')">+</button>
+                        </div>
+                        <button class="btn-adicionar" onclick="adicionarAoCarrinho('SHOKO', 175, 'shoko')">
+                            ADICIONAR AO CARRINHO
+                        </button>
+                    </div>
+
+                    <!-- Produto 2: LAVENDELBLÜTE -->
+                    <div class="produto-card">
+                        <div class="produto-imagem">
+                            [IMAGEM LAVENDELBLÜTE]
+                        </div>
+                        <h3 class="produto-nome">LAVENDELBLÜTE</h3>
+                        <p class="produto-descricao">LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE.</p>
+                        <p class="produto-preco">R$ 180,00</p>
+                        <div class="quantidade-container">
+                            <button class="quantidade-btn" onclick="diminuirQuantidade('lavendelblute')">-</button>
+                            <input type="number" id="quantidade-lavendelblute" class="quantidade-input" value="1" min="1">
+                            <button class="quantidade-btn" onclick="aumentarQuantidade('lavendelblute')">+</button>
+                        </div>
+                        <button class="btn-adicionar" onclick="adicionarAoCarrinho('LAVENDELBLÜTE', 180, 'lavendelblute')">
+                            ADICIONAR AO CARRINHO
+                        </button>
+                    </div>
+
+                    <!-- Produto 3: OBSTSALAT -->
+                    <div class="produto-card">
+                        <div class="produto-imagem">
+                            [IMAGEM OBSTSALAT]
+                        </div>
+                        <h3 class="produto-nome">OBSTSALAT</h3>
+                        <p class="produto-descricao">LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE.</p>
+                        <p class="produto-preco">R$ 185,00</p>
+                        <div class="quantidade-container">
+                            <button class="quantidade-btn" onclick="diminuirQuantidade('obstsalat')">-</button>
+                            <input type="number" id="quantidade-obstsalat" class="quantidade-input" value="1" min="1">
+                            <button class="quantidade-btn" onclick="aumentarQuantidade('obstsalat')">+</button>
+                        </div>
+                        <button class="btn-adicionar" onclick="adicionarAoCarrinho('OBSTSALAT', 185, 'obstsalat')">
+                            ADICIONAR AO CARRINHO
+                        </button>
+                    </div>
+
+                    <!-- Produto 4: JABUTICABA-LIKÖR -->
+                    <div class="produto-card">
+                        <div class="produto-imagem">
+                            [IMAGEM JABUTICABA]
+                        </div>
+                        <h3 class="produto-nome">JABUTICABA-LIKÖR</h3>
+                        <p class="produto-descricao">LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE.</p>
+                        <p class="produto-preco">R$ 190,00</p>
+                        <div class="quantidade-container">
+                            <button class="quantidade-btn" onclick="diminuirQuantidade('jabuticaba')">-</button>
+                            <input type="number" id="quantidade-jabuticaba" class="quantidade-input" value="1" min="1">
+                            <button class="quantidade-btn" onclick="aumentarQuantidade('jabuticaba')">+</button>
+                        </div>
+                        <button class="btn-adicionar" onclick="adicionarAoCarrinho('JABUTICABA-LIKÖR', 190, 'jabuticaba')">
+                            ADICIONAR AO CARRINHO
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ASSINATURA -->
+        <section id="assinatura" class="section">
+            <div class="pagina-container">
+                <h1 class="titulo-principal">ASSINATURA MENSAL</h1>
+                <p class="texto-corrido">
+                    RECEBA NOSSOS MELHORES CAFÉS DIRETAMENTE EM SUA CASA OU ESTABELECIMENTO. 
+                    UMA EXPERIÊNCIA ÚNICA TODO MÊS.
+                </p>
+
+                <div class="planos-grid">
+                    <div class="plano-card">
+                        <h3 class="plano-nome">PLANO ESSENCIAL</h3>
+                        <p class="plano-preco">R$ 150/MÊS</p>
+                        <p class="plano-descricao">1 SACAS DE CAFÉ ESPECIAL POR MÊS. PERFEITO PARA CONSUMO PESSOAL.</p>
+                        <button class="btn-adicionar" onclick="adicionarAssinatura('PLANO ESSENCIAL', 150)">
+                            ASSINAR AGORA
+                        </button>
+                    </div>
+
+                    <div class="plano-card">
+                        <h3 class="plano-nome">PLANO PROFISSIONAL</h3>
+                        <p class="plano-preco">R$ 280/MÊS</p>
+                        <p class="plano-descricao">2 SACAS DE CAFÉ ESPECIAL POR MÊS. IDEAL PARA PEQUENOS ESTABELECIMENTOS.</p>
+                        <button class="btn-adicionar" onclick="adicionarAssinatura('PLANO PROFISSIONAL', 280)">
+                            ASSINAR AGORA
+                        </button>
+                    </div>
+
+                    <div class="plano-card">
+                        <h3 class="plano-nome">PLANO PREMIUM</h3>
+                        <p class="plano-preco">R$ 400/MÊS</p>
+                        <p class="plano-descricao">4 SACAS DE CAFÉ ESPECIAL POR MÊS. PARA ESTABELECIMENTOS DE GRANDE FLUXO.</p>
+                        <button class="btn-adicionar" onclick="adicionarAssinatura('PLANO PREMIUM', 400)">
+                            ASSINAR AGORA
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTATO -->
+        <section id="contato" class="section">
+            <div class="pagina-container">
+                <h1 class="titulo-principal">CONTATO</h1>
+                <p class="texto-corrido">
+                    ENTRE EM CONTATO PARA COTAÇÕES, DÚVIDAS OU PARA SE TORNAR UM DE NOSSOS FORNECEDORES.
+                </p>
+
+                <form class="form-contato">
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="NOME" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="EMAIL" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-input" placeholder="TELEFONE" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="ASSUNTO" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-input form-textarea" placeholder="MENSAGEM" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-hero" style="width: 100%;">
+                        ENVIAR MENSAGEM
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- CARRINHO -->
+        <section id="carrinho" class="section">
+            <div class="pagina-container">
+                <h1 class="titulo-principal">CARRINHO</h1>
+                
+                <div class="carrinho-container">
+                    <div id="itens-carrinho">
+                        <!-- Itens do carrinho serão inseridos aqui pelo JavaScript -->
+                    </div>
+
+                    <div class="calculo-frete">
+                        <h3 class="titulo-secundario">CALCULAR FRETE</h3>
+                        <input type="text" class="frete-input" placeholder="CEP" id="cep-frete">
+                        <button class="btn-calcular-frete" onclick="calcularFrete()">CALCULAR</button>
+                        <div id="resultado-frete" style="margin-top: 1rem;"></div>
+                    </div>
+
+                    <div class="total-carrinho">
+                        TOTAL: R$ <span id="total-carrinho">0,00</span>
+                    </div>
+
+                    <button class="btn-finalizar" onclick="finalizarCompra()">
+                        FINALIZAR COMPRA - PIX OU MERCADO PAGO
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">
+            <!-- LOGO FOOTER -->
+            <img src="short-white.png" alt="HAFEN">
+        </div>
+        <p class="pagamento-methods">
+            ACEITAMOS PIX, CARTÃO DE CRÉDITO E MERCADO PAGO
+        </p>
+        <p>© 2023 HAFEN. TODOS OS DIREITOS RESERVADOS.</p>
+    </footer>
+
+    <!-- INCLUSÃO DO SCRIPT -->
+    <script src="script.js"></script>
+</body>
+</html>
