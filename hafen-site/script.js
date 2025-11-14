@@ -49,6 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Adicionar event listener para o formulário de contato
+    const formContato = document.querySelector('.form-contato');
+    if (formContato) {
+        formContato.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+            this.reset();
+            navigateToSection('hero');
+        });
+    }
+
     // Garantir que a seção inicial (hero) esteja ativa ao carregar
     navigateToSection('hero');
     
@@ -64,6 +75,12 @@ function atualizarCarrinhoUI() {
     const cartCountSpan = document.getElementById('cart-count');
     let total = 0;
     let itemCount = 0;
+
+    // Verificar se os elementos existem antes de manipular
+    if (!itensCarrinhoDiv || !totalCarrinhoSpan || !cartCountSpan) {
+        console.error('Elementos do carrinho não encontrados');
+        return;
+    }
 
     itensCarrinhoDiv.innerHTML = ''; // Limpa o conteúdo atual
 
@@ -98,8 +115,15 @@ function atualizarCarrinhoUI() {
 function adicionarAoCarrinho(nome, preco, idProduto) {
     const inputId = `quantidade-${idProduto}`;
     const quantidadeInput = document.getElementById(inputId);
+    
+    // Verificar se o elemento existe
+    if (!quantidadeInput) {
+        console.error(`Elemento com ID ${inputId} não encontrado`);
+        return;
+    }
+    
     // Garante que a quantidade seja pelo menos 1
-    const quantidade = parseInt(quantidadeInput ? quantidadeInput.value : 1) || 1; 
+    const quantidade = parseInt(quantidadeInput.value) || 1;
 
     const itemExistente = carrinho.find(item => item.nome === nome);
 
@@ -128,27 +152,41 @@ function adicionarAssinatura(nome, preco) {
 }
 
 function removerItem(index) {
-    carrinho.splice(index, 1);
-    atualizarCarrinhoUI();
+    if (index >= 0 && index < carrinho.length) {
+        carrinho.splice(index, 1);
+        atualizarCarrinhoUI();
+    }
 }
 
 function aumentarQuantidade(idProduto) {
     const input = document.getElementById(`quantidade-${idProduto}`);
     if (input) {
-        input.value = parseInt(input.value) + 1;
+        const currentValue = parseInt(input.value) || 0;
+        input.value = currentValue + 1;
     }
 }
 
 function diminuirQuantidade(idProduto) {
     const input = document.getElementById(`quantidade-${idProduto}`);
-    if (input && parseInt(input.value) > 1) {
-        input.value = parseInt(input.value) - 1;
+    if (input) {
+        const currentValue = parseInt(input.value) || 1;
+        if (currentValue > 1) {
+            input.value = currentValue - 1;
+        }
     }
 }
 
 function calcularFrete() {
-    const cep = document.getElementById('cep-frete').value.replace(/\D/g, ''); // Remove não-dígitos
+    const cepInput = document.getElementById('cep-frete');
     const resultadoDiv = document.getElementById('resultado-frete');
+    
+    // Verificar se os elementos existem
+    if (!cepInput || !resultadoDiv) {
+        console.error('Elementos de cálculo de frete não encontrados');
+        return;
+    }
+    
+    const cep = cepInput.value.replace(/\D/g, ''); // Remove não-dígitos
     
     if (cep.length === 8) {
         // Simulação de cálculo de frete baseado no CEP (apenas para demonstração)
@@ -185,3 +223,25 @@ function finalizarCompra() {
     atualizarCarrinhoUI();
     navigateToSection('hero'); // Volta para a página inicial
 }
+
+// Funções auxiliares para melhor experiência do usuário
+function validarQuantidade(input) {
+    const value = parseInt(input.value);
+    if (isNaN(value) || value < 1) {
+        input.value = 1;
+    }
+}
+
+// Adicionar validação em tempo real para os inputs de quantidade
+document.addEventListener('DOMContentLoaded', () => {
+    const quantidadeInputs = document.querySelectorAll('.quantidade-input');
+    quantidadeInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            validarQuantidade(this);
+        });
+        
+        input.addEventListener('blur', function() {
+            validarQuantidade(this);
+        });
+    });
+});
