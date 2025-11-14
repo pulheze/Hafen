@@ -1,0 +1,10 @@
+{
+  "name": "hafen-cafe",
+  "version": "1.0.0",
+  "description": "Site HAFEN Cafés Especiais",
+  "scripts": {
+    "build": "echo 'Building static site' && mkdir -p dist && cp index.html dist/ && cp script.js dist/ && cp -r imagens dist/ || exit 0"
+  },
+  "devDependencies": {},
+  "type": "module"
+}
