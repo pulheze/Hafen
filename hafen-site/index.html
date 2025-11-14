@@ -1,4 +1,3 @@
-index.html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -65,7 +64,7 @@ index.html
             font-weight: 400;
             font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px; /* Título informativo e head - tudo em caixa alta */
+            letter-spacing: 1.5px;
             transition: opacity 0.3s;
         }
 
@@ -465,11 +464,17 @@ index.html
             margin-top: 4rem;
         }
 
-        .footer-logo img {
-            height: 30px;
-            width: auto;
+        .footer-logo {
             margin-bottom: 2rem;
-            filter: brightness(0) invert(1);
+        }
+
+        .footer-logo-text {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--branco);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .pagamento-methods {
@@ -534,8 +539,7 @@ index.html
     <header>
         <div class="nav-container">
             <div class="logo">
-                <!-- LOGO: C:\Users\helen\OneDrive\Área de Trabalho\imagens_site\short.png -->
-                <img src="short.png" alt="HAFEN">
+                <img src="imagens/short.png" alt="HAFEN">
             </div>
             <nav>
                 <ul>
@@ -559,8 +563,7 @@ index.html
         <section id="hero" class="section active">
             <div class="hero-barn">
                 <div class="hero-imagem">
-                    <!-- IMAGEM HERO: C:\Users\helen\OneDrive\Área de Trabalho\imagens_site\cafederespeito.jpg -->
-                    <img src="cafederespeito.jpg" alt="HAFEN CAFÉ">
+                    <img src="imagens/cafederespeito.jpg" alt="HAFEN CAFÉ">
                 </div>
                 <div class="hero-conteudo">
                     <p class="hero-texto">
@@ -850,8 +853,7 @@ index.html
     <!-- FOOTER -->
     <footer>
         <div class="footer-logo">
-            <!-- LOGO FOOTER -->
-            <img src="short-white.png" alt="HAFEN">
+            <div class="footer-logo-text">HAFEN</div>
         </div>
         <p class="pagamento-methods">
             ACEITAMOS PIX, CARTÃO DE CRÉDITO E MERCADO PAGO
@@ -860,6 +862,4 @@ index.html
     </footer>
 
     <!-- INCLUSÃO DO SCRIPT -->
-    <script src="script.js"></script>
-</body>
-</html>
+    <script src="script
